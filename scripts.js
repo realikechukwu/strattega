@@ -1,5 +1,7 @@
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.primary-nav');
+const header = document.querySelector('.site-header');
+const hero = document.querySelector('.hero');
 const navLinks = Array.from(document.querySelectorAll('.nav-link'));
 const sections = navLinks
   .map((link) => document.querySelector(link.getAttribute('href')))
@@ -38,4 +40,16 @@ if (sections.length && navLinks.length) {
   );
 
   sections.forEach((section) => observer.observe(section));
+}
+
+if (header && hero) {
+  const updateHeaderState = () => {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    const headerHeight = header.offsetHeight;
+    header.classList.toggle('is-scrolled', heroBottom <= headerHeight);
+  };
+
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+  window.addEventListener('resize', updateHeaderState);
 }

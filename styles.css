@@ -8,6 +8,7 @@
   --border: #d8d0c7;
   --card: #ffffff;
   --shadow: 0 14px 30px rgba(18, 18, 18, 0.06);
+  --header-height: 64px;
   --space-xs: 0.4rem;
   --space-sm: 0.8rem;
   --space-md: 1.4rem;
@@ -74,16 +75,18 @@ html {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(248, 243, 236, 0.96);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(6px);
+  height: var(--header-height);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  color: #ffffff;
 }
 
 .nav-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 0;
+  height: var(--header-height);
+  padding: 0;
   gap: 1rem;
 }
 
@@ -91,7 +94,7 @@ html {
   font-weight: 600;
   font-size: 1.1rem;
   letter-spacing: 0.4px;
-  color: var(--text-strong);
+  color: inherit;
 }
 
 .primary-nav {
@@ -107,22 +110,50 @@ html {
 
 .primary-nav a:hover,
 .primary-nav a:focus {
-  border-bottom-color: var(--accent);
+  border-bottom-color: rgba(255, 255, 255, 0.8);
 }
 
 .primary-nav a.active {
-  border-bottom-color: var(--accent);
-  color: var(--text-strong);
+  border-bottom-color: #ffffff;
+  color: #ffffff;
 }
 
 .nav-toggle {
   display: none;
-  border: 1px solid var(--border);
-  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  color: #ffffff;
   padding: 0.4rem 0.7rem;
   border-radius: 6px;
   font-size: 0.9rem;
   cursor: pointer;
+}
+
+.site-header.is-scrolled {
+  background: rgba(248, 243, 236, 0.96);
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  backdrop-filter: blur(6px);
+}
+
+.site-header.is-scrolled .brand {
+  color: var(--text-strong);
+}
+
+.site-header.is-scrolled .primary-nav a:hover,
+.site-header.is-scrolled .primary-nav a:focus {
+  border-bottom-color: var(--accent);
+}
+
+.site-header.is-scrolled .primary-nav a.active {
+  border-bottom-color: var(--accent);
+  color: var(--text-strong);
+}
+
+.site-header.is-scrolled .nav-toggle {
+  border-color: var(--border);
+  background: var(--card);
+  color: var(--text-strong);
 }
 
 .section {
@@ -134,21 +165,44 @@ html {
 }
 
 .hero {
-  padding-top: clamp(4.5rem, 6vw, 6rem);
+  position: relative;
+  margin-top: calc(-1 * var(--header-height));
+  padding-top: calc(var(--section-pad) + var(--header-height));
+  padding-bottom: var(--section-pad);
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  background-image: url("assets/header.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 0.72rem;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 h1 {
   font-size: clamp(2.6rem, 3.4vw, 3.6rem);
   margin: var(--space-xs) 0 var(--space-sm);
   line-height: 1.12;
-  color: var(--text-strong);
+  color: #ffffff;
 }
 
 .subheadline {
@@ -159,7 +213,7 @@ h1 {
 
 .credibility {
   margin-top: var(--space-xs);
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .cta-row {
@@ -197,6 +251,18 @@ h1 {
 .link:hover,
 .link:focus {
   color: #435c54;
+}
+
+.hero .link {
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  padding-bottom: 2px;
+}
+
+.hero .link:hover,
+.hero .link:focus {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
 }
 
 .section-header {
@@ -296,8 +362,8 @@ h1 {
     position: absolute;
     top: 64px;
     right: 4%;
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding: 0.8rem 1rem;
     display: none;
@@ -308,6 +374,17 @@ h1 {
 
   .primary-nav.open {
     display: flex;
+  }
+}
+
+@media (max-width: 860px) {
+  .site-header.is-scrolled .primary-nav {
+    background: var(--card);
+    border-color: var(--border);
+  }
+
+  .site-header.is-scrolled .primary-nav a {
+    color: var(--text);
   }
 }
 
@@ -331,7 +408,7 @@ h1 {
 
 @media (max-width: 560px) {
   .hero {
-    padding-top: 5rem;
+    min-height: 70vh;
   }
 
   .cta-row {
@@ -341,5 +418,11 @@ h1 {
 
   .button {
     width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  :root {
+    --header-height: 56px;
   }
 }
