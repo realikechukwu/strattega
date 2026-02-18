@@ -1,0 +1,21 @@
+{
+  "name": "strattega",
+  "version": "1.0.0",
+  "description": "Minimal, fast, single-page portfolio for Strattega. Built to run on GitHub Pages with static files only.",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realikechukwu/strattega.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/realikechukwu/strattega/issues"
+  },
+  "homepage": "https://github.com/realikechukwu/strattega#readme"
+}
